@@ -1,0 +1,11 @@
+### Updates an existing patient
+PUT http://localhost:4000/pms/patients/123e4567-e89b-12d3-a456-426614174000
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john.updated@example.com",
+  "address": "123 Main St, SpringBotfield",
+  "dateOfBirth": "1985-06-16"
+}
+
