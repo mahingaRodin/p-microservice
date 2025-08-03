@@ -3,9 +3,9 @@ POST http://localhost:4000/pms/patients
 Content-Type: application/json
 
 {
-  "name": "Brian Lilian with billing account",
-  "email": "lilbrian_342billingaccount@gmail.com",
-  "address": "124 muhanga main street",
+  "name": "Brian Lilian with billing account and kafka",
+  "email": "lilbrian_342billingaccount_with_kafka@gmail.com",
+  "address": "124 muhanga-Shyogwe main street",
   "dateOfBirth": "2008-12-02",
   "registeredDate": "2025-07-27"
 }
