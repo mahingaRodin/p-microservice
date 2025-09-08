@@ -16,7 +16,7 @@ public class KafkaConsumer {
     public void consumeEvent(byte[] event) {
         try {
             PatientEvent patientEvent = PatientEvent.parseFrom(event);
-            //perform any oth4r business logic here
+            //perform any other business logic here
 
             log.info("Received patient event: [PatientId={},PatientName ={}, PatientEmail={}]",
                     patientEvent.getPatientId(),
