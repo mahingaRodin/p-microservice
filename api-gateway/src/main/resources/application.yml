@@ -19,7 +19,7 @@ spring:
               predicates:
                 - Path=/api-docs/patients
               filters:
-                - RewritePath=/api-docs/patients, /api-docs/patients
+                - RewritePath=/api-docs/patients, /v3/api-docs
 
 logging:
   level:
