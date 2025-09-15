@@ -15,6 +15,6 @@ WORKDIR /app
 
 COPY --from=builder /app/target/*.jar ./app.jar
 
-EXPOSE 4005
+EXPOSE 4000
 
 ENTRYPOINT ["java","-jar" ,"app.jar"]
