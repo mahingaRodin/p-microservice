@@ -7,18 +7,20 @@ spring:
       server:
         webflux:
           routes:
-            # Route for patient API endpoints
-                    - id: patient-service-route
-                      uri: http://patient-service:4000
-                      predicates:
-                        - Path=/api/patients/**
-                      filters:
-                        - StripPrefix=1
+            - id: patient-service-route
+              uri: http://patient-service:4000
+              predicates:
+                - Path=/api/patients, /api/patients/**
+              filters:
+                - RewritePath=/api/patients(?<remaining>/?.*), /patients${remaining}
 
-                    # Route for API documentation
-                    - id: api-docs-patient-route
-                      uri: http://patient-service:4000
-                      predicates:
-                        - Path=/api-docs/patients
-                      filters:
-                        - RewritePath=/api-docs/patients, /v3/api-docs
+            - id: api-docs-patient-route
+              uri: http://patient-service:4000
+              predicates:
+                - Path=/api-docs/patients
+              filters:
+                - RewritePath=/api-docs/patients, /api-docs/patients
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
