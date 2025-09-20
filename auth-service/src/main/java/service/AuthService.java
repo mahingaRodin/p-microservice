@@ -19,10 +19,14 @@ public class AuthService {
         this.jwtUtil = jwtUtil;
     }
     public Optional<String> authenticate(LoginRequestDTO loginRequestDTO) {
-    Optional<String> token = userService
-            .findByEmail(loginRequestDTO.getEmail())
-            .filter(u -> passwordEncoder.matches(loginRequestDTO.getPassword(), u.getPassword()))
-            .map( u-> jwtUtil.generateToken(u.getEmail(), u.getRole()))
-            ;
+        Optional<String> token = userService
+                .findByEmail(loginRequestDTO.getEmail())
+                .filter(u -> {
+                    boolean matches = passwordEncoder.matches(loginRequestDTO.getPassword(), u.getPassword());
+                    System.out.println("Password matches? " + matches);
+                    return matches;
+                })
+                .map(u -> jwtUtil.generateToken(u.getEmail(), u.getRole()));
+
     return token;
 }}
