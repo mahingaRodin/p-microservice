@@ -1,6 +1,6 @@
-package repository;
+package com.pm.authservice.repository;
 
-import model.User;
+import com.pm.authservice.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

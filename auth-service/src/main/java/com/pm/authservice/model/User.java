@@ -1,4 +1,4 @@
-package model;
+package com.pm.authservice.model;
 
 
 import jakarta.persistence.*;
@@ -11,6 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(columnDefinition = "UUID")
     private UUID id;
 
     @Column(unique = true, nullable = false)

@@ -1,4 +1,4 @@
-package dto;
+package com.pm.authservice.dto;
 
 public class LoginResponseDTO {
     private final String token;

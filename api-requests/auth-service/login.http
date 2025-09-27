@@ -1,5 +1,5 @@
 ### Login request to get a token
-POST http://localhost:4005/login
+POST http://localhost:4004/api/auth/login
 Content-Type: application/json
 
 {

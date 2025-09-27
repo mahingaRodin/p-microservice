@@ -1,18 +1,18 @@
-package controller;
+package com.pm.authservice.controller;
 
-import dto.LoginRequestDTO;
-import dto.LoginResponseDTO;
+import com.pm.authservice.dto.LoginRequestDTO;
+import com.pm.authservice.dto.LoginResponseDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import service.AuthService;
+import com.pm.authservice.service.AuthService;
 
 import java.util.Optional;
 
-@RestController()
+@RestController("/api/auth")
 public class AuthController {
     private final AuthService authService;
 

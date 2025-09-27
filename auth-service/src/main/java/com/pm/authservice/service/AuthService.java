@@ -1,9 +1,10 @@
-package service;
+package com.pm.authservice.service;
 
-import dto.LoginRequestDTO;
+import com.pm.authservice.dto.LoginRequestDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import util.JwtUtil;
+import com.pm.authservice.util.JwtUtil;
 
 import java.util.Optional;
 
