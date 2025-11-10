@@ -13,6 +13,7 @@ spring:
                 - Path=/api/patients, /api/patients/**
               filters:
                 - RewritePath=/api/patients(?<remaining>/?.*), /patients${remaining}
+                - JwtValidation
 
             - id: api-docs-patient-route
               uri: http://patient-service:4000
