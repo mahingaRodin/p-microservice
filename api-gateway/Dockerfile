@@ -9,12 +9,12 @@ COPY src ./src
 
 RUN mvn clean package
 
-FROM openjdk:21-jdk AS runner
+FROM eclipse-temurin:21-jre AS runner
 
 WORKDIR /app
 
-COPY --from=builder /app/target/*.jar ./app.jar
+COPY --from=builder /app/target/*.jar app.jar
 
 EXPOSE 4000
 
-ENTRYPOINT ["java","-jar" ,"app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]

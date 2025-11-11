@@ -7,13 +7,20 @@ spring:
       server:
         webflux:
           routes:
+            - id: auth-service-route
+              uri: http://auth-service:4005
+              predicates:
+                - Path=/auth/**
+              filters:
+                - StripPrefix=1
+
             - id: patient-service-route
               uri: http://patient-service:4000
               predicates:
                 - Path=/api/patients, /api/patients/**
               filters:
                 - RewritePath=/api/patients(?<remaining>/?.*), /patients${remaining}
-#                - JwtValidation
+                - JwtValidation
 
             - id: api-docs-patient-route
               uri: http://patient-service:4000
@@ -22,12 +29,16 @@ spring:
               filters:
                 - RewritePath=/api-docs/patients, /v3/api-docs
 
-            - id: auth-service-route
-              uri: http://patient-service:4000
+            - id: auth-api-route
+              uri: http://auth-service:4005
               predicates:
                 - Path=/api/auth/**
               filters:
                 - RewritePath=/api/auth(?<remaining>/?.*), ${remaining}
+
+auth:
+  service:
+    url: http://auth-service:4005
 
 logging:
   level:
