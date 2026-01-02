@@ -34,6 +34,46 @@ public class LocalStack extends Stack{
 
         this.ecsCluster = createEcsCluster();
 
+        FargateService authService =
+                createFargateService("AuthService",
+                        "auth-service",
+                        List.of(4005),
+                        authServiceDb,
+                        Map.of("JWT_SECRET", "f9caa5d94f8a4a0eb17e1c4a7a0f7a9c31c3e24d38a0c51d4c0c62d0c99f6a1f"));
+        authService.getNode().addDependency(authDbHealthCheck);
+        authService.getNode().addDependency(authServiceDb);
+
+        FargateService billingService =
+                createFargateService("BillingService"
+                ,"billing-service",
+                        List.of(4001, 9001),
+                        null,
+                        null
+                );
+
+        FargateService analyticsService =
+                createFargateService("AnalyticsService",
+                "analytics-service",
+        List.of(4002),
+        null,
+        null
+                );
+
+        analyticsService.getNode().addDependency(mskCluster);
+
+        FargateService patientService =
+                createFargateService("PatientService",
+                        "patient-service",
+                        List.of(4000),
+                        patientServiceDb,
+                        Map.of(
+                                "BILLING_SERVICE_ADDRESS", "host.docker.internal",
+                                "BILLING_SERVICE_GRPC_PORT", "9001"
+                        ));
+            patientService.getNode().addDependency(patientServiceDb);
+            patientService.getNode().addDependency(patientDbHealthCheck);
+            patientService.getNode().addDependency(billingService);
+            patientService.getNode().addDependency(mskCluster);
     }
     private Vpc createVpc() {
         return Vpc.Builder
