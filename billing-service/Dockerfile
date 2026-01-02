@@ -9,7 +9,7 @@ COPY src ./src
 
 RUN mvn clean package
 
-FROM openjdk:21-jdk as runner
+FROM eclipse-temurin:21-jre AS runner
 
 WORKDIR /app
 

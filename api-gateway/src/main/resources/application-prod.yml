@@ -1,0 +1,52 @@
+server:
+  port: 4004
+
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: auth-service-route
+              uri: http://host.docker.internal:4005
+              predicates:
+                - Path=/auth/**
+              filters:
+                - StripPrefix=1
+
+            - id: patient-service-route
+              uri: http://host.docker.internal:4000
+              predicates:
+                - Path=/api/patients, /api/patients/**
+              filters:
+                - RewritePath=/api/patients(?<remaining>/?.*), /patients${remaining}
+                - JwtValidation
+
+            - id: api-docs-patient-route
+              uri: http://host.docker.internal:4000
+              predicates:
+                - Path=/api-docs/patients
+              filters:
+                - RewritePath=/api-docs/patients, /v3/api-docs
+
+            - id: auth-api-route
+              uri: http://host.docker.internal:4005
+              predicates:
+                - Path=/api/auth/**
+              filters:
+                - RewritePath=/api/auth(?<remaining>/?.*), ${remaining}
+
+            - id: api-docs-auth-route
+              uri: http://host.docker.internal:4005
+              predicates:
+                - Path=/api-docs/auth
+              filters:
+                - RewritePath=/api-docs/auth, /v3/api-docs
+
+auth:
+  service:
+    url: http://host.docker.internal:4005
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
