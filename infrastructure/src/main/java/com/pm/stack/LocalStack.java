@@ -162,6 +162,7 @@ public class LocalStack extends Stack{
                                                 .retention(RetentionDays.ONE_DAY)
                                                 .build()
                                         )
+                                        .streamPrefix(imageName)
                                 .build()));
 //                        .build();
 
